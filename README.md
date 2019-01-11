@@ -1,4 +1,6 @@
-# search_repeat_icons
+ 
+
+### 搜索目录下是否有相同的PNG或JPG图片资源，比如App工程目录下检查是否有重复的资源图，可以减小App包的体积。
 
 #### Usage
 
