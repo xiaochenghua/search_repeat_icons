@@ -50,7 +50,7 @@ def search_repeat_icon():
         icon_path = input('Please type search path: \n').strip()
         output_file = input('Please type out file path: \n').strip()
 
-    # 找出给定目录下所有扩展名为.png的文件
+    # 找出给定目录下所有扩展名为.png和.jpg的文件
     total_icons_path = []
     for parent, dirnames, filenames in os.walk(icon_path):
         for filename in filenames:
