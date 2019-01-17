@@ -1,8 +1,7 @@
- 
+
 ### Introduction
-```
-搜索目录下是否有相同的PNG或JPG图片资源，
-比如App工程目录下检查是否有重复的资源图，可有效减小App安装包体积。
+```html
+遍历查找指定目录下重复的图标，导出结果到文件中。
 ```
 
 ### Usage
@@ -11,15 +10,16 @@
 # 不带参数直接运行，在控制台中输入
 python3 search_repeat_icons.py
 
-# 带-p和-o参数运行，建议使用这种方法
-python3 search_repeat_icons.py -p path -o outfile
+# 带-p和-e参数运行，建议使用这种方法
+python3 search_repeat_icons.py -p iconPath -e exportFile
 
 # help模式
 python3 search_repeat_icons.py -h
 ```
 
 ### Options
+```html
+-p iconPath  		icon目录
+-o exportFile		导出文件，建议文件格式为json
 ```
--p path  		icons根目录
--o outfile		输入结果文件，结果是dict，所以建议输出文件格式为json
-```
+
