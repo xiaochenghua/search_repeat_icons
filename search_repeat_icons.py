@@ -42,7 +42,7 @@ def __icons_paths(icon_path):
     icons_paths = []
     for parent, dirnames, filenames in os.walk(icon_path):
         for filename in filenames:
-            if os.path.splitext(filename)[-1] not in ['.png', '.jpg']:
+            if os.path.splitext(filename)[-1] not in ('.png', '.jpg'):
                 continue
             icons_paths.append(os.path.join(parent, filename))
     return icons_paths
