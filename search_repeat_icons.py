@@ -61,7 +61,11 @@ def __md5_dict(*args):
 
 def __write_to_file(file, **kwargs):
     # 过滤掉字典值数组个数为1个的(取出的就是有重复的图片)
-    repeat_icon_dict = {i: kwargs[i] for i in kwargs if len(kwargs[i]) > 1}
+    repeat_icon_dict = {}
+    repeat_icons = [kwargs[i] for i in kwargs if len(kwargs[i]) > 1]
+    repeat_icon_dict['count'] = len(repeat_icons)
+    repeat_icon_dict['icons'] = repeat_icons
+
     try:
         with open(file, 'w') as f:
             f.write(json.dumps(repeat_icon_dict, indent=4))
