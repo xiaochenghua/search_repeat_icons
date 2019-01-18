@@ -23,3 +23,10 @@ python3 search_repeat_icons.py -h
 -o exportFile		导出文件，建议文件格式为json
 ```
 
+### Export file
+```json
+result.json
+├── count	重复的图片次数
+└── icons 	重复的图片数组信息
+```
+
