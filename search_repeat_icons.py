@@ -53,9 +53,13 @@ def __md5_dict(*args):
     for icon_path in args:
         md5_string = hashlib.md5(open(icon_path, 'rb').read()).hexdigest()
         if md5_string in md5_dict.keys() and isinstance(md5_dict[md5_string], list):
-            md5_dict[md5_string].append(os.path.basename(icon_path))
+            # md5_dict[md5_string].append(os.path.basename(icon_path))
+            # 输出绝对地址
+            md5_dict[md5_string].append(icon_path)
         else:
-            md5_dict[md5_string] = [os.path.basename(icon_path)]
+            # md5_dict[md5_string] = [os.path.basename(icon_path)]
+            # 输出绝对地址
+            md5_dict[md5_string] = [icon_path]
     return md5_dict
 
 
@@ -63,12 +67,13 @@ def __write_to_file(file, **kwargs):
     # 过滤掉字典值数组个数为1个的(取出的就是有重复的图片)
     repeat_icon_dict = {}
     repeat_icons = [kwargs[i] for i in kwargs if len(kwargs[i]) > 1]
-    repeat_icon_dict['count'] = len(repeat_icons)
-    repeat_icon_dict['icons'] = repeat_icons
+    repeat_icon_dict['repeat_times'] = len(repeat_icons)
+    repeat_icon_dict['icon_list'] = repeat_icons
 
     try:
         with open(file, 'w') as f:
             f.write(json.dumps(repeat_icon_dict, indent=4))
+            return repeat_icon_dict['repeat_times']
     except IOError as e:
         print(e.msg)
         sys.exit(-6)
@@ -93,7 +98,7 @@ def __search_repeat_icon():
             elif opt == '-e':
                 export_file = __check_export_file(arg)
             elif opt == '-h':
-                print('Usage: python3 %s -p iconPath -e exportFile' % os.path.basename(sys.argv[0]))
+                print('Usage: \npython3 %s [ -p 需要查重图标的目录 -e 导出文件目录.json ]' % os.path.basename(sys.argv[0]))
                 exit()
     else:
         # 根据控制台输入得到数据
@@ -104,10 +109,10 @@ def __search_repeat_icon():
     icons_info = __md5_dict(*__icons_paths(icon_path))
 
     # 将字典写入文件
-    __write_to_file(export_file, **icons_info)
+    repeat_times = __write_to_file(export_file, **icons_info)
 
     # 打印日志
-    print('%s\n🎁🎁🎁 Successfully!! Export file is:[%s]' % ('-'*80, export_file))
+    print('%s\n🎁🎁🎁 Successfully! export file -> [%s], repeat times -> %s' % ('-'*80, export_file, repeat_times))
 
 if __name__ == "__main__":
     __search_repeat_icon()
